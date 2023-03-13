@@ -10,6 +10,9 @@ public class Spell : MonoBehaviour, IAmSpell
     [SerializeField] private int heal;
     [SerializeField] private bool splash;
     [SerializeField] private List<int> pattern;
+    [SerializeField] private string animationToPlay;
+    [SerializeField] int destroyItAfter;
+
     private Animator anim;
     private ParticleSystem particls;
     
@@ -21,8 +24,10 @@ public class Spell : MonoBehaviour, IAmSpell
         anim = GetComponent<Animator>();
         particls = GetComponent<ParticleSystem>();
         particls.Play();
+        anim.Play(animationToPlay);
         opponent.TakeDamage(damage);
         master.TakeDamage(-heal);
+        StartCoroutine(DestroyMeAfter(destroyItAfter));
     }
     void Awake()
     {
@@ -40,8 +45,9 @@ public class Spell : MonoBehaviour, IAmSpell
         return cost;
     }
 
-    void Update()
+    IEnumerator DestroyMeAfter(float s)
     {
-        if (!particls.isEmitting) Destroy(this.gameObject);
+        yield return new WaitForSeconds(s);
+        Destroy(this.gameObject);
     }
 }

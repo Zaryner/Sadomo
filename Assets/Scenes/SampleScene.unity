@@ -1001,8 +1001,8 @@ Canvas:
   m_GameObject: {fileID: 428650922}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -6576,6 +6576,7 @@ MonoBehaviour:
   log: {fileID: 2056961215}
   spPrefs:
   - {fileID: 3984929769449509639, guid: 3252c9ceff09d044f98723196439ea16, type: 3}
+  - {fileID: 7455510938809245557, guid: a49a7de2a675acd428a4bef52a95c7a0, type: 3}
 --- !u!1001 &8857272243504852005
 PrefabInstance:
   m_ObjectHideFlags: 0

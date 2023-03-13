@@ -63,7 +63,7 @@ public class Player : MonoBehaviour, IAmAlive
         mp += m;
         if (mp <= 0)
         {
-            hp = 0;
+            mp = 0;
 
         }
         if (mp > maxMP)

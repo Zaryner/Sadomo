@@ -23,8 +23,8 @@ public class Cast : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         is_casting = false;
         path = new List<int>();
         spell = new List<int>();
-        spells= new List<IAmSpell>();
-        for(int i = 0; i < spPrefs.Length; i++)
+        spells = new List<IAmSpell>();
+        for (int i = 0; i < spPrefs.Length; i++)
         {
             spells.Add(spPrefs[i].GetComponent<IAmSpell>());
         }
@@ -63,31 +63,32 @@ public class Cast : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void ChooseSpell(List<int> spell)
     {
-        for(int i = 0; i < spells.Count; i++)
+        for (int i = 0; i < spells.Count; i++)
         {
             if (ComparePattern(spell, spells[i].GetPattern()))
             {
                 if (master.SpendMana(spells[i].GetManaCost()))
                 {
-                    spells[i].opponent = opponent;
-                    spells[i].master = master;
-                    Instantiate(spPrefs[i]);
+                    GameObject sp = Instantiate(spPrefs[i]);
+                    IAmSpell usedSpell= sp.GetComponent<IAmSpell>();
+                    usedSpell.opponent = opponent;
+                    usedSpell.master = master;
 
-                    spells[i].Cast();
+                    usedSpell.Cast();
                 }
-                break;
+                return;
             }
         }
     }
 
     private bool ComparePattern(List<int> a, List<int> b)
     {
-        if(a.Count != b.Count) return false;
-        for(int i=0;i<a.Count;i++)
+        if (a.Count != b.Count) return false;
+        for (int i = 0; i < a.Count; i++)
         {
             if (a[i] != b[i]) return false;
         }
         return true;
     }
-    
+
 }
