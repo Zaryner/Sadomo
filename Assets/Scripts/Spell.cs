@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Spell : MonoBehaviour, IAmSpell
+{
+    [SerializeField] private string name;
+    [SerializeField] private int cost;
+    [SerializeField] private int damage;
+    [SerializeField] private int heal;
+    [SerializeField] private bool splash;
+    [SerializeField] private List<int> pattern;
+    private Animator anim;
+    private ParticleSystem particls;
+    
+    public IAmAlive master { get; set; }
+    public IAmAlive opponent { get; set; }
+
+    public void Cast()
+    {
+        anim = GetComponent<Animator>();
+        particls = GetComponent<ParticleSystem>();
+        particls.Play();
+        opponent.TakeDamage(damage);
+        master.TakeDamage(-heal);
+    }
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+        particls = GetComponent<ParticleSystem>();
+    }
+
+    public List<int> GetPattern()
+    {
+        return pattern;
+    }
+
+    public int GetManaCost()
+    {
+        return cost;
+    }
+
+    void Update()
+    {
+        if (!particls.isEmitting) Destroy(this.gameObject);
+    }
+}
